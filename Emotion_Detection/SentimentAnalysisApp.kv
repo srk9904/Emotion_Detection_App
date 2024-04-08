@@ -1,0 +1,124 @@
+WindowManager:
+    MainWindow:
+    FirstWindow:
+
+
+<MainWidget>:
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            source:'bg.png'
+            size: self.width, self.height
+
+
+<MainWindow>:
+    name: "main"
+    MainWidget:
+    Widget:
+       # Button:
+       #     text: "go to first"
+       #     pos: int(self.width*0.5), int(self.height*0.5)
+       #     size: int(self.width), int(self.height)
+       #     on_release:
+       #         app.root.current = "first"
+       #         root.manager.transition.direction = "left"
+
+
+<FirstWindow>:
+    name: "history of graph"
+    Button:
+        text: "Go back"
+        on_release:
+            app.root.current = "main"
+            root.manager.transition.direction = "right"
+
+
+#----------------------------------------------CHAT ROOM KV CODE-------------------------------------------------------
+<BoxLayoutForCHAT>:
+
+    ip_text: ip_text
+    chat_text: chat_text
+    nickname_text: nickname_text
+    connect_btn: connect_btn
+    message_text: message_text
+    send_btn: send_btn
+    connection_grid: connection_grid
+
+
+    orientation: 'vertical'
+    GridLayout:
+        id: connection_grid
+        rows : 1
+        cols : 2
+        padding : 10
+        spacing: 10
+        height : 95
+        size_hint: (1,None)
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: "Server IP"
+                font_size: 25
+                color: 0.92, 0.45, 0, 1
+            TextInput:
+                id: ip_text
+                size_hint: (1,None)
+                height: 50
+                font_size : 36
+                hint_font_size: 10
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: "Nickname"
+                font_size: 25
+                color: 0.92, 0.45, 0, 1
+            TextInput:
+                id: nickname_text
+                size_hint: (1,None)
+                height: 50
+                hint_font_size: 10
+                font_size : 36
+    Button:
+        id: connect_btn
+        text: "Connect"
+        font_size: 20
+        size: 100,50
+        size_hint: (1,None)
+        height: 30
+        on_press: root.connect_to_server()
+    Label:
+        text: "Chat History:"
+        font_size: 25
+        height: 30
+        size_hint: (1,None)
+        color: 0.92, 0.45, 0, 1
+    TextInput:
+        id: chat_text
+        size_hint: (1,None)
+        height: 450
+        multiline: True
+        font_size: 30
+        hint_font_size: 10
+        readonly: True
+        disabled: True
+    Label:
+        id: message_text
+        text: "Your Message"
+        font_size: 25
+        height: 30
+        size_hint: (1,None)
+        color: 0.92, 0.45, 0, 1
+    TextInput:
+        id: message_text
+        font_size: 30
+        hint_font_size: 10
+        disabled: True
+    Button:
+        id: send_btn
+        text: "Send"
+        font_size: 32
+        size: 100,50
+        on_press: root.send_message()
+        disabled: True
+
